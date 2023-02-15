@@ -4,7 +4,7 @@
   dessa hopplängder.
   */
 
-function getLength(jumpings: number[]): number {
+/* function getLength(jumpings: number[]): number {
   let totalNumber = 0;
 
   totalNumber = jumpings.reduce(
@@ -12,13 +12,20 @@ function getLength(jumpings: number[]): number {
   );
 
   return totalNumber;
+} */
+
+// Solution 1
+function getLength(jumpings: number[]): number {
+  return jumpings.reduce(
+    (jumpDistanceSoFar, currentJump) => jumpDistanceSoFar + currentJump
+  );
 }
 
 /*
   2. I detta exempel har vi fokuserat på if-statements. Se om du kan göra exemplet bättre!
   */
 
-class Student {
+/* class Student {
   constructor(
     public name: string,
     public handedInOnTime: boolean,
@@ -39,6 +46,27 @@ function getStudentStatus(student: Student): string {
   } else {
     return "IG";
   }
+} */
+
+// Solution 2
+class Student {
+  constructor(
+    public name: string,
+    public handedInOnTime: boolean,
+    public passed: boolean
+  ) {}
+}
+
+function getStudentStatus(student: Student): string {
+  if (student.name == "Sebastian") {
+      student.passed = student.handedInOnTime ? true: false;
+  }
+
+  if (student.passed) {
+    return "VG";
+  } else {
+    return "IG";
+  }
 }
 
 /*
@@ -46,7 +74,7 @@ function getStudentStatus(student: Student): string {
   Det finns flera code smells att identifiera här. Vissa är lurigare än andra.
   */
 
-class Temp {
+/* class Temp {
   constructor(public q: string, public where: Date, public v: number) {}
 }
 
@@ -62,6 +90,31 @@ function averageWeeklyTemperature(heights: Temp[]) {
   }
 
   return r / 7;
+} */
+
+// Solution 3
+class Temp {
+  constructor(
+    public cityName: string, 
+    public when: Date, 
+    public tempValue: number
+    ) {}
+}
+
+function averageWeeklyTemperature(highestTemp: Temp[]) {
+  let averageTemp = 0;
+  const ONE_WEEK = 604800000;
+  const NUMBER_OF_DAYS = 7;
+
+  for (let i = 0; i < highestTemp.length; i++) {
+    if (highestTemp[i].cityName === "Stockholm") {
+      if (highestTemp[i].when.getTime() > Date.now() - ONE_WEEK) {
+        averageTemp += highestTemp[i].tempValue;
+      }
+    }
+  }
+
+  return averageTemp / NUMBER_OF_DAYS;
 }
 
 /*
@@ -125,7 +178,7 @@ function presentStudents(students: Student[]) {
   Lorem, ipsum, dolor, sit, amet
   Exemplet under löser problemet, men inte speciellt bra. Hur kan man göra istället?
   */
-function concatenateStrings() {
+/* function concatenateStrings() {
   let result = "";
   result += "Lorem";
   result += "ipsum";
@@ -134,6 +187,13 @@ function concatenateStrings() {
   result += "amet";
 
   return result;
+} */
+
+// Solution 6
+function concatenateStrings() {
+  let textList: string[] = ["Lorem", "ipsum", "dolor", "sit", "amet"];
+
+  return textList.join("");
 }
 
 /* 
@@ -142,7 +202,7 @@ function concatenateStrings() {
     fler och fler parametrar behöver läggas till? T.ex. avatar eller adress. Hitta en bättre
     lösning som är hållbar och skalar bättre. 
 */
-function createUser(
+/* function createUser(
   name: string,
   birthday: Date,
   email: string,
@@ -158,6 +218,35 @@ function createUser(
 
   if (!(userAge < 20)) {
     // Logik för att skapa en användare
+  } else {
+    return "Du är under 20 år";
+  }
+} */
+
+// Solution 7
+class User {
+  constructor(
+    public name: string,
+    public birthday: Date,
+    public email: string,
+    public password: string
+  ) {}
+
+  calculateAge(): number {
+
+    let ageDiff = Date.now() - birthday.getTime();
+    let ageDate = new Date(ageDiff);
+    let userAge = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+    return userAge;
+  }
+}
+
+function createUser(newUser: User) {
+
+  let newUserAge = newUser.calculateAge();
+
+  if (newUserAge > 20) {
   } else {
     return "Du är under 20 år";
   }
