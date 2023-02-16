@@ -14,11 +14,9 @@
   return totalNumber;
 } */
 
-// Solution 1
+/*------------------1-----------------------*/
 function getLength(jumpings: number[]): number {
-  return jumpings.reduce(
-    (jumpDistanceSoFar, currentJump) => jumpDistanceSoFar + currentJump
-  );
+  return jumpings.reduce((jumpDistanceSoFar, currentJump) => jumpDistanceSoFar + currentJump);
 }
 
 /*
@@ -48,7 +46,7 @@ function getStudentStatus(student: Student): string {
   }
 } */
 
-// Solution 2
+/*------------------2-----------------------*/
 class Student {
   constructor(
     public name: string,
@@ -92,13 +90,13 @@ function averageWeeklyTemperature(heights: Temp[]) {
   return r / 7;
 } */
 
-// Solution 3
+/*------------------3-----------------------*/
 class Temp {
   constructor(
     public cityName: string, 
     public when: Date, 
-    public tempValue: number
-    ) {}
+    public temperature: number
+  ) {}
 }
 
 function averageWeeklyTemperature(highestTemp: Temp[]) {
@@ -109,7 +107,7 @@ function averageWeeklyTemperature(highestTemp: Temp[]) {
   for (let i = 0; i < highestTemp.length; i++) {
     if (highestTemp[i].cityName === "Stockholm") {
       if (highestTemp[i].when.getTime() > Date.now() - ONE_WEEK) {
-        averageTemp += highestTemp[i].tempValue;
+        averageTemp += highestTemp[i].temperature;
       }
     }
   }
@@ -122,7 +120,7 @@ function averageWeeklyTemperature(highestTemp: Temp[]) {
   Se om du kan göra det bättre. Inte bara presentationen räknas, även strukturer.
   */
 
-function showProduct(
+/* function showProduct(
   name: string,
   price: number,
   amount: number,
@@ -143,13 +141,30 @@ function showProduct(
   container.appendChild(imageTag);
   container.appendChild(pris);
   parent.appendChild(container);
+} */
+
+
+/*------------------4-----------------------*/
+function showProduct (title:string, price: number, image: string, container: HTMLElement) {
+  container.innerHTML = `
+  <div>
+    <h4>
+      ${title}
+    </h4>
+    <strong>
+      ${price}
+    </strong>
+    <img src="${image}">
+  </div>
+  `;
 }
+
 
 /*
   5. Följande funktion kommer presentera studenter. Men det finns ett antal saker som 
   går att göra betydligt bättre. Gör om så många som du kan hitta!
   */
-function presentStudents(students: Student[]) {
+/* function presentStudents(students: Student[]) {
   for (const student of students) {
     if (student.handedInOnTime) {
       let container = document.createElement("div");
@@ -171,6 +186,35 @@ function presentStudents(students: Student[]) {
       listOfStudents?.appendChild(container);
     }
   }
+} */
+
+/*------------------5-----------------------*/
+function presentStudents(students: Student[]) {
+  for (const student of students) {
+    let container = document.createElement("div");
+    let checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+  
+    if (student.handedInOnTime) {
+      presentPassedStudents(checkbox, container);
+    } else {
+      presentFailedStudents(checkbox, container);
+    }
+  }
+}
+
+function presentPassedStudents(checkbox: HTMLInputElement, container: HTMLDivElement) {
+  checkbox.checked = true;
+  container.appendChild(checkbox);
+  let listOfStudents = document.querySelector("ul#passedstudents")
+  listOfStudents?.appendChild(container);
+}
+
+function presentFailedStudents(checkbox: HTMLInputElement, container: HTMLDivElement) {
+  checkbox.checked = false;
+  container.appendChild(checkbox);
+  let listOfStudents = document.querySelector("ul#failedstudents");
+  listOfStudents?.appendChild(container);
 }
 
 /*
@@ -189,7 +233,7 @@ function presentStudents(students: Student[]) {
   return result;
 } */
 
-// Solution 6
+/*------------------6-----------------------*/
 function concatenateStrings() {
   let textList: string[] = ["Lorem", "ipsum", "dolor", "sit", "amet"];
 
@@ -223,7 +267,7 @@ function concatenateStrings() {
   }
 } */
 
-// Solution 7
+/*------------------7-----------------------*/
 class User {
   constructor(
     public name: string,
@@ -234,7 +278,7 @@ class User {
 
   calculateAge(): number {
 
-    let ageDiff = Date.now() - birthday.getTime();
+    let ageDiff = Date.now() - this.birthday.getTime();
     let ageDate = new Date(ageDiff);
     let userAge = Math.abs(ageDate.getUTCFullYear() - 1970);
 
