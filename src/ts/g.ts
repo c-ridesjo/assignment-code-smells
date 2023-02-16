@@ -206,7 +206,7 @@ function presentStudents(students: Student[]) {
 function presentPassedStudents(checkbox: HTMLInputElement, container: HTMLDivElement) {
   checkbox.checked = true;
   container.appendChild(checkbox);
-  let listOfStudents = document.querySelector("ul#passedstudents")
+  let listOfStudents = document.querySelector("ul#passedstudents");
   listOfStudents?.appendChild(container);
 }
 
@@ -277,7 +277,6 @@ class User {
   ) {}
 
   calculateAge(): number {
-
     let ageDiff = Date.now() - this.birthday.getTime();
     let ageDate = new Date(ageDiff);
     let userAge = Math.abs(ageDate.getUTCFullYear() - 1970);
@@ -287,7 +286,6 @@ class User {
 }
 
 function createUser(newUser: User) {
-
   let newUserAge = newUser.calculateAge();
 
   if (newUserAge > 20) {
