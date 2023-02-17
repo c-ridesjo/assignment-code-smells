@@ -101,12 +101,12 @@ class Temp {
 
 function averageWeeklyTemperature(highestTemp: Temp[]) {
   let averageTemp = 0;
-  const ONE_WEEK = 604800000;
+  const ONE_WEEK_IN_MS = 604800000;
   const NUMBER_OF_DAYS = 7;
 
   for (let i = 0; i < highestTemp.length; i++) {
     if (highestTemp[i].cityName === "Stockholm") {
-      if (highestTemp[i].when.getTime() > Date.now() - ONE_WEEK) {
+      if (highestTemp[i].when.getTime() > Date.now() - ONE_WEEK_IN_MS) {
         averageTemp += highestTemp[i].temperature;
       }
     }
